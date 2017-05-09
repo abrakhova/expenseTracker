@@ -47,7 +47,7 @@
 		<div data-role="navbar" id="navi">
 			<ul>
 				<li><a href="#home" class="ui-btn ui-icon-home ui-btn-icon-top  ui-mini">Home</a></li>
-				<li><a href="#camPage" class="ui-btn ui-icon-camera ui-btn-icon-top ui-mini">Camera</a></li>
+				<!--<li><a href="#camPage" class="ui-btn ui-icon-camera ui-btn-icon-top ui-mini">Camera</a></li>-->
 				<li><a href="#weatherPage"  class="ui-btn ui-icon-calendar ui-btn-icon-top ui-mini">Weather</a></li>
 				<li><a href="#distPage" class="ui-btn ui-icon-gear ui-btn-icon-top ui-mini">Distance</a></li>
 				<!--<li><a href="#lunchPage" class="ui-btn ui-icon-bullets ui-btn-icon-top ui-mini">Lunch</a></li>-->
@@ -180,6 +180,11 @@
             
             <p>Here is the expense for chosen date:</p>
             <p id="expensebydate"></p>
+            
+            <a href="#popupBasic" data-rel="popup" class="ui-btn ui-corner-all ui-shadow ui-btn-inline" data-transition="pop">1</a>
+            <div data-role="popup" id="popupBasic">
+                <p id="spendingbydate">spending by date</p>
+            </div>
             
              <div class="month">
                 <ul>
@@ -540,7 +545,8 @@
             
             console.log("hello");
 			storage.setItem($('#expensedate').val(), $('#price').val());
-
+                
+            
             var htmlData = "<ul id='datalist' data-role='listview'>";
             
             $('#datalist').empty();
@@ -588,7 +594,7 @@
             
 
             $('#expensebydate').html(htmlData);
-                
+            $('#spendingbydate').text(htmlData);
             
             });
         
