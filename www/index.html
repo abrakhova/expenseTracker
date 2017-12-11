@@ -7,9 +7,7 @@
     <meta name="msapplication-tap-highlight" content="no" />
     <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
     
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' ws://172.20.10.2:3000 http://code.jquery.com https://code.jquery.com  https://ssl.gstatic.com https://maps.googleapis.com https://maps.gstatic.com https://csi.gstatic.com https://fonts.googleapis.com https://fonts.gstatic.com gap: data: blob: filesystem: ; " />
-
-    
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' ws://172.20.10.2:3000 http://code.jquery.com https://code.jquery.com  https://ssl.gstatic.com https://maps.googleapis.com https://maps.gstatic.com https://csi.gstatic.com https://fonts.googleapis.com https://fonts.gstatic.com http://openweathermap.org http://www.amica.fi gap: data: blob: filesystem: ; " />
 
     <link rel="stylesheet"  href="jquery.mobile-1.4.5/jquery.mobile-1.4.5.min.css">
     <link rel="stylesheet" type="text/css" href="css/index.css" />
@@ -26,8 +24,6 @@
     <script type="text/javascript" src="jqm-datebox.lang.utf8.js"></script>
     
 
-<!--	  <link rel="stylesheet" type="text/css" href="css/index.css" />-->
-
       <title>Expense tracker</title>
 </head>
 
@@ -38,10 +34,10 @@
 
         <ul data-role="listview">
             <li><a href="#home" class="ui-btn">Home</a></li>
-            <li><a href="#camPage" class="ui-btn">Camera</a></li>
             <li><a href="#weatherPage"  class="ui-btn">Weather</a></li>
             <li><a href="#distPage" class="ui-btn">Distance</a></li>
             <li><a href="#expensePage" class="ui-btn">Expense</a></li>
+            <li><a href="#mapPage" class="ui-btn">Purchases map</a></li>
             <li><a href="#lunchPage" class="ui-btn">Lunch</a></li>
         </ul>
     </div>
@@ -55,11 +51,11 @@
         <div data-role="navbar" id="navi">
             <ul>
                 <li><a href="#home" class="ui-btn ui-icon-home ui-btn-icon-top  ui-mini">Home</a></li>
-                <li><a href="#camPage" class="ui-btn ui-icon-camera ui-btn-icon-top ui-mini">Camera</a></li>
-                <li><a href="#weatherPage"  class="ui-btn ui-icon-calendar ui-btn-icon-top ui-mini">Weather</a></li>
-                <li><a href="#distPage" class="ui-btn ui-icon-gear ui-btn-icon-top ui-mini">Distance</a></li>
+                <li><a href="#weatherPage"  class="ui-btn ui-icon-cloud ui-btn-icon-top ui-mini">Weather</a></li>
+                <li><a href="#distPage" class="ui-btn ui-icon-navigation ui-btn-icon-top ui-mini">Distance</a></li>
                 <li><a href="#lunchPage" class="ui-btn ui-icon-bullets ui-btn-icon-top ui-mini">Lunch</a></li>
-                <li><a href="#expensePage" class="ui-btn ui-icon-bullets ui-btn-icon-top ui-mini">Expense</a></li>
+                <li><a href="#expensePage" class="ui-btn ui-icon-shop ui-btn-icon-top ui-mini">Expense</a></li>
+                <li><a href="#mapPage" class="ui-btn ui-icon-location ui-btn-icon-top ui-mini">Purchases map</a></li>
             </ul>
         </div>
     </div>
@@ -85,23 +81,7 @@
 
     </div> <!-- /page -->
 
-    <!-- ------------------------------------------------ -->
-    <!-- CAMERA                                           -->
-    <!-- ------------------------------------------------ -->
-    <div data-role="page" id="camPage" data-title="Camera">
-
-        <div role="main" class="ui-content ui-body-a">
-            <button id="btncam" class="ui-btn ui-btn-inline ui-icon-camera ui-btn-icon-left ui-mini">Capture</button>            
-
-                <button class="ui-btn ui-btn-inline ui-icon-camera ui-btn-icon-left ui-mini" id="camLabrary">From Photo Library</button><br>
-                <button class="ui-btn ui-btn-inline ui-icon-camera ui-btn-icon-left ui-mini" id="camAlbum">From Photo Album</button><br>
-
-            <br/>
-            <img style="display:none;" id="myImage"/>
-        </div> <!-- /content -->
-
-    </div> <!-- /page -->
-
+   
     <!-- ------------------------------------------------ -->
     <!-- WEATHER                                          -->
     <!-- ------------------------------------------------ -->
@@ -133,7 +113,7 @@
             <p id="res"></p>
             <p id="res2"></p>
 
-             <div id="map" style="width:100%;height:300px;background:yellow">The map will be here</div>
+            
         </div> <!-- /content -->
 
     </div> <!-- /page -->
@@ -150,6 +130,17 @@
         </div> <!-- /content -->
 
    </div> <!-- /page -->
+    
+    <!-- ------------------------------------------------ -->
+    <!-- MAP                                         -->
+    <!-- ------------------------------------------------ -->
+    <div data-role="page" id="mapPage" data-title="Map">
+
+        <div role="main" class="ui-content ui-body-a">
+             <div id="map" style="width:100%;height:310px;background:yellow">The map will be here</div>
+        </div> <!-- /content -->
+
+    </div> <!-- /page -->
 
 
     <!-- ------------------------------------------------ -->
@@ -180,10 +171,9 @@
 
 
 
-
+            <p>List of purchases</p>
              <p id="spending"></p>
 
-            <p id="test"></p>
 
             <a id="updatetotal" class="ui-btn ui-btn-inline">Update total</a>
             <p>Total so far:</p>
@@ -196,65 +186,6 @@
             <p>Here is the expense for chosen date:</p>
             <p id="expensebydate"></p>
 
-            <a href="#popupBasic" data-rel="popup" class="ui-btn ui-corner-all ui-shadow ui-btn-inline" data-transition="pop">1</a>
-            <div data-role="popup" id="popupBasic">
-                <p id="spendingbydate">spending by date</p>
-            </div>
-
-             <div class="month">
-                <ul>
-            <li class="prev">&#10094;</li>
-            <li class="next">&#10095;</li>
-            <li>
-            May<br>
-            <span style="font-size:9px">2017</span>
-            </li>
-            </ul>
-            </div>
-
-            <ul class="weekdays">
-            <li>Mo</li>
-            <li>Tu</li>
-            <li>We</li>
-            <li>Th</li>
-            <li>Fr</li>
-            <li>Sa</li>
-            <li>Su</li>
-            </ul>
-
-            <ul class="days">
-              <li>1</li>
-              <li>2</li>
-              <li>3</li>
-              <li>4</li>
-              <li>5</li>
-              <li>6</li>
-              <li>7</li>
-              <li>8</li>
-              <li>9</li>
-              <li>10</li>
-              <li>11</li>
-              <li>12</li>
-                <li>13</li>
-                <li>14</li>
-                <li>15</li>
-                <li>16</li>
-                <li>17</li>
-                <li>18</li>
-                <li>19</li>
-                <li>20</li>
-                <li>21</li>
-                <li>22</li>
-                <li>23</li>
-                <li>24</li>
-                <li>25</li>
-                <li>26</li>
-                <li>27</li>
-                <li>28</li>
-                <li>29</li>
-                <li>30</li>
-                <li>31</li>
-            </ul>
 
                 </div>   <!-- /content -->
         </form>
@@ -446,64 +377,7 @@
                             });
                     }
 
-
-
-        // ------------------------------------------------
-        // CAMERA                                           
-        // ------------------------------------------------ 
-        var pictureSource;   // picture source
-        var destinationType; // sets the format of returned value 
-
-        $(document).on("pagecreate", "#camPage", function() {
-            console.log("camera page created");
-
-            fetchCam();
-        })
-
-        function fetchCam(){
-            console.log(navigator.camera);
-            console.log(pictureSource);
-            console.log(destinationType);
-            $("#btncam").click(function(){
-                navigator.camera.getPicture(onSuccess, onFail, { quality:50, destinationType: Camera.DestinationType.FILE_URI });
-
-                function onSuccess(imageData) {
-                    var image = document.getElementById('myImage');
-                    myImage.style.display = 'block';
-                    image.src = "data:image/jpeg;base64," + imageData;
-                }                                                
-                function onFail(message) {
-                    alert('Failed because: ' + message);
-                }                
-            });      
-
-            $("#camLibrary").click(function(){
-                navigator.camera.getPicture(onSuccess, onFail, { quality:50, destinationType: destinationType.FILE_URI, sourceType: pictureSource.PHOTOLIBRARY});
-
-                function onSuccess(imageData) {
-                    var image = document.getElementById('myImage');
-                    myImage.style.display = 'block';
-                    image.src = "data:image/jpeg;base64," + imageData;
-                }                                                
-                function onFail(message) {
-                    alert('Failed because: ' + message);
-                }                
-            });
-
-            $("#camAlbum").click(function(){
-                navigator.camera.getPicture(onSuccess, onFail, { quality:50, destinationType: destinationType.FILE_URI, sourceType: pictureSource.SAVEDPHOTOALBUM});
-
-                function onSuccess(imageData) {
-                    var image = document.getElementById('myImage');
-                    myImage.style.display = 'block';
-                    image.src = "data:image/jpeg;base64," + imageData;
-                }                                                
-                function onFail(message) {
-                    alert('Failed because: ' + message);
-                }                
-            });            
-        }
-
+        
         // ------------------------------------------------
         // DISTANCE                                           
         // ------------------------------------------------
@@ -527,20 +401,6 @@
 
                             });
             })
-
-            function initMap() {
-        var uluru = {lat: -25.363, lng: 131.044};
-        var map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 4,
-          center: uluru
-        });
-        var marker = new google.maps.Marker({
-          position: uluru,
-          map: map
-        });
-      }
-
-
 
         })
 
@@ -598,16 +458,26 @@
 
 
             var htmlData = "<ul id='datalist'>";
+            var categoryData = "<ul id='datalist'>";
+            var myMap = new Map();
+            var keyString;
+            var sumByCategory=0;
                 $('#datalist').empty();
                 for (var i = 0; i < storage.length; i++){
                     var todoItem = storage.getItem(storage.key(i));
                     var product = JSON.parse(todoItem);
-                    htmlData += "<li>" + product.item + " " + product.price + " "+"</li>"; 
+                    htmlData += "<li>" + product.item + " " + product.price + " "+"</li>";
+                    
                 }
+                
+                
                 htmlData += "</ul>";
 
                 $('#spending').html(htmlData);
-
+                
+                
+                //clear the input fields, in this case I am clearing the whole form
+                $("#frmExpense")[0].reset();
 
             });
 
@@ -665,7 +535,7 @@
 
 
             $('#expensebydate').html(htmlData);
-            $('#spendingbydate').text(htmlData);
+        
 
                 sum=0;
 
@@ -704,10 +574,10 @@
         // ------------------------------------------------
 
         $(document).on("pagecreate", "#lunchPage", function() {
-            console.log("Lunchpage created");
-            fetchAmica();
-        }) 
-
+			console.log("Lunchpage created");
+			fetchAmica();
+		})
+        
         function fetchAmica(){
             $.ajax({
                             url: "http://www.amica.fi/modules/json/json/Index?costNumber=0083&language=en",
@@ -721,7 +591,7 @@
                                     else if (k==1){$("#lunch").append("<b>Tomorrow</b><br> ");}
                                     else if (k==2){
                                     $("#lunch").append("<b>"+data.MenusForDays[k].Date.substring(0,10)+"</b><br> ");}
-
+                                
                                     j=0;
                                     while(data.MenusForDays[k].SetMenus[j]){
                                         i=0;
@@ -737,19 +607,14 @@
                                 $("#lunch").append("<br><br>");
                             }
                         });                          
-
+                            
         }
-
         function onDeviceReady() {
 
-            // camera
-            pictureSource=navigator.Camera.PictureSourceType;
-            destinationType=navigator.Camera.DestinationType;
-
-
-
-
+            
         }
+        
+        //Map function
 
         function myMap() {
             var mapOptions = {
@@ -783,12 +648,6 @@
                 console.log(product.item);
                 }
             
-            //marker.setMap(map);
-            
-        //var myLatlng = new google.maps.LatLng(product.latitude,product.longitude);
-            
-        
-        
         }
         
     </script>
