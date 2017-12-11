@@ -159,7 +159,15 @@
                         <label for="expense">What did you buy?:</label>
                         <input name="expense" id="expense" value=""> 
                         <label for="category">Category:</label>
-                        <input name="category" id="category" value="">  
+                        <!--<input name="category" id="category" value=""> -->
+                        <select id="category">
+                        <option value="selectCategory">Select category</option>
+                          <option value="food">Food</option>
+                          <option value="cosmetics">Cosmetics</option>
+                          <option value="clothes">Clothes</option>
+                          <option value="accomodation">Accomodation</option>
+                          <option value="travel">Travel</option>
+                        </select>
                         <label for="price">Price:</label>
                         <input name="price" id="price" value=""> 
                        <label for="expensedate">Date:</label>
@@ -173,6 +181,18 @@
 
             <p>List of purchases</p>
              <p id="spending"></p>
+            
+            <p>Food</p>
+            <p id="testFood"></p>
+            <p>Cosmetics</p>
+            <p id="testCosmetics"></p>
+            <p>Clothes</p>
+            <p id="testClothes"></p>
+            <p>Accomodation</p>
+            <p id="testAccomodation"></p>
+            <p>Travel</p>
+            <p id="testTravel"></p>
+
 
 
             <a id="updatetotal" class="ui-btn ui-btn-inline">Update total</a>
@@ -410,7 +430,7 @@
         // ------------------------------------------------
         
         var lat;
-            var lon;
+        var lon;
         
         var storage = window.localStorage;
 
@@ -447,7 +467,7 @@
             var counter=0;
 
             var boughtItem = {item:$('#expense').val(),
-                             category:$('#category').val(),
+                             category:$('#category :selected').text(), 
                              price:$('#price').val(),
                              expensedate:$('#expensedate').val(),
                              latitude:lat,
@@ -459,9 +479,7 @@
 
             var htmlData = "<ul id='datalist'>";
             var categoryData = "<ul id='datalist'>";
-            var myMap = new Map();
-            var keyString;
-            var sumByCategory=0;
+            
                 $('#datalist').empty();
                 for (var i = 0; i < storage.length; i++){
                     var todoItem = storage.getItem(storage.key(i));
@@ -469,12 +487,53 @@
                     htmlData += "<li>" + product.item + " " + product.price + " "+"</li>";
                     
                 }
-                
+            
                 
                 htmlData += "</ul>";
 
                 $('#spending').html(htmlData);
                 
+                var sumOfFood=0;
+                var sumOfAccomodation=0;
+                var sumOfTravel=0;
+                var sumOfClothes=0;
+                var sumOfCosmetics=0;
+                
+                for (var i = 0; i < storage.length; i++){
+                todoItem = storage.getItem(storage.key(i));
+                product = JSON.parse(todoItem);
+                
+                    if(product.category=="Food"){
+                        sumOfFood+=parseFloat(product.price);
+                        console.log(sumOfFood);
+                     }   
+                    if(product.category=="Cosmetics"){
+                        sumOfCosmetics+=parseFloat(product.price);
+                     }  
+                    if(product.category=="Clothes"){
+                        sumOfClothes+=parseFloat(product.price);
+                     }  
+                    if(product.category=="Accomodation"){
+                        sumOfAccomodation+=parseFloat(product.price);
+                     }  
+                    if(product.category=="Travel"){
+                        sumOfTravel+=parseFloat(product.price);
+                     }  
+                    
+                }
+                
+                $('#testFood').html(sumOfFood);
+                $('#testCosmetics').html(sumOfCosmetics);
+                $('#testClothes').html(sumOfClothes);
+                $('#testAccomodation').html(sumOfAccomodation);
+                $('#testTravel').html(sumOfTravel);
+                
+                
+                sumOfAccomodation=0;
+                sumOfClothes=0;
+                sumOfCosmetics=0;
+                sumOfFood=0;
+                sumOfTravel=0;
                 
                 //clear the input fields, in this case I am clearing the whole form
                 $("#frmExpense")[0].reset();
@@ -491,7 +550,7 @@
                 todoItem = storage.getItem(storage.key(i));
                 product = JSON.parse(todoItem);
                 console.log(product);
-                sum+=parseInt(product.price);
+                sum+=parseFloat(product.price);
 
             }
 
@@ -523,7 +582,7 @@
                 product = JSON.parse(todoItem);
                 console.log(product);
                     if(product.expensedate==checkdate){
-                        sum+=parseInt(product.price);
+                        sum+=parseFloat(product.price);
                      }   
 
 
