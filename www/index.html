@@ -7,10 +7,11 @@
     <meta name="msapplication-tap-highlight" content="no" />
     <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
     
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' ws://172.20.10.2:3000 http://code.jquery.com https://code.jquery.com  https://ssl.gstatic.com https://maps.googleapis.com https://maps.gstatic.com https://csi.gstatic.com https://fonts.googleapis.com https://fonts.gstatic.com http://openweathermap.org http://www.amica.fi gap: data: blob: filesystem: ; " />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' ws://192.168.10.60:3000 http://code.jquery.com https://code.jquery.com  https://ssl.gstatic.com https://maps.googleapis.com https://maps.gstatic.com https://csi.gstatic.com https://fonts.googleapis.com https://fonts.gstatic.com http://openweathermap.org http://www.amica.fi gap: data: blob: filesystem: ; " />
 
     <link rel="stylesheet"  href="jquery.mobile-1.4.5/jquery.mobile-1.4.5.min.css">
     <link rel="stylesheet" type="text/css" href="css/index.css" />
+    <link rel="stylesheet" type="text/css" href="css/pickmeup.css" />
 
     <script src="jquery-2.2.4.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI=" crossorigin="anonymous"></script>
 
@@ -22,6 +23,7 @@
     <script type="text/javascript" src="jqm-datebox-1.4.5.mode.calbox.min.js"></script>
     <script type="text/javascript" src="jqm-datebox-1.4.5.mode.datebox.min.js"></script>
     <script type="text/javascript" src="jqm-datebox.lang.utf8.js"></script>
+    <script type="text/javascript" src="dist/pickmeup.min.js"></script>
     
 
       <title>Expense tracker</title>
@@ -200,11 +202,14 @@
             <p id="total"></p>
 
             <label for="checkdate">Date:</label>
-            <input name="checkdate" class="form-control" id="checkdate" type="text" data-role="datebox" data-options='{"mode":"datebox"}' />
+            <input name="checkdate" class="form-control" id="checkdate" type="text" data-role="datebox" data-options='{"mode":"calbox"}' />
              <a id="check" class="ui-btn ui-btn-inline">Check by date</a>
 
             <p>Here is the expense for chosen date:</p>
             <p id="expensebydate"></p>
+            
+            
+            
 
 
                 </div>   <!-- /content -->
@@ -672,6 +677,7 @@
 
             
         }
+        
         
         //Map function
 
